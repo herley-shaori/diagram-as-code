@@ -137,7 +137,7 @@ func CreateDiagramFromCFnTemplate(inputfile string, outputfile *string, generate
 		go generateDacFileFromCFnTemplate(&template, *outputfile)
 	}
 
-	if opts != nil {
+	if opts != nil && opts.EmbedYAML {
 		yamlBytes, err := yaml.Marshal(template)
 		if err == nil {
 			opts.YAMLContent = yamlBytes

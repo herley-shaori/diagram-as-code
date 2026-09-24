@@ -181,7 +181,9 @@ type CreateOptions struct {
 	OverrideFont              string
 	Width                     int
 	Height                    int
-	YAMLContent               []byte
+	// EmbedYAML opts in to embedding YAMLContent in the output PNG metadata.
+	EmbedYAML   bool
+	YAMLContent []byte
 }
 
 func createDiagram(resources map[string]*types.Resource, outputfile *string, opts *CreateOptions) error {
@@ -258,7 +260,7 @@ func createDiagram(resources map[string]*types.Resource, outputfile *string, opt
 	}
 
 	pngBytes := buf.Bytes()
-	if opts != nil && len(opts.YAMLContent) > 0 {
+	if opts != nil && opts.EmbedYAML && len(opts.YAMLContent) > 0 {
 		embeddedBytes, err := EmbedYAMLInPNG(pngBytes, opts.YAMLContent)
 		if err != nil {
 			log.Warnf("Failed to embed YAML in PNG: %v", err)

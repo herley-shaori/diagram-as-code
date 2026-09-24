@@ -94,7 +94,7 @@ func CreateDiagramFromDacFile(inputfile string, outputfile *string, opts *Create
 		processedData = data
 	}
 
-	if opts != nil {
+	if opts != nil && opts.EmbedYAML {
 		opts.YAMLContent = processedData
 	}
 
